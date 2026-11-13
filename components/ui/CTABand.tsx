@@ -34,7 +34,7 @@ export function CTABand({
       <div className="container-site grid gap-10 lg:grid-cols-12 lg:items-end">
         <div className="lg:col-span-8">
           <EightDots className={dark ? "text-paper" : "text-ink"} onDark={dark} />
-          <h2 className="text-h2 mt-8 max-w-[16ch]">
+          <h2 className="font-display mt-8 max-w-[14ch] text-[clamp(2.75rem,1.2rem+5.6vw,7rem)] leading-[0.95] tracking-[-0.025em]">
             {title}
             <span
               aria-hidden

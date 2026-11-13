@@ -1,13 +1,9 @@
 import type { Metadata } from "next";
-import {
-  Hero,
-  Problem,
-  RecentWork,
-  Offer,
-  Process,
-  WhyOctate,
-  HomeFaq,
-} from "@/components/sections/Home";
+import { Offer, Process, HomeFaq } from "@/components/sections/Home";
+import { HeroV2 } from "@/components/sections/HeroV2";
+import { ProblemStack } from "@/components/sections/ProblemStack";
+import { WorkShowcase } from "@/components/sections/WorkShowcase";
+import { WhyIndex } from "@/components/sections/WhyIndex";
 import { CTABand } from "@/components/ui/CTABand";
 import { JsonLd } from "@/components/ui/JsonLd";
 import { faqsByTag } from "@/content/faq";
@@ -28,12 +24,12 @@ export default function HomePage() {
     <>
       <JsonLd data={organizationLd()} />
       <JsonLd data={faqLd(faqsByTag("home"))} />
-      <Hero />
-      <Problem />
-      <RecentWork />
+      <HeroV2 />
+      <ProblemStack />
+      <WorkShowcase />
       <Offer />
       <Process />
-      <WhyOctate />
+      <WhyIndex />
       <HomeFaq />
       <CTABand
         dark

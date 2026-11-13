@@ -122,6 +122,21 @@ export function Wordmark({
   );
 }
 
+/** The wordmark as one full-width SVG (footer). The full stop blinks like a cursor. */
+export function MegaWordmark({ className }: { className?: string }) {
+  return (
+    <svg
+      viewBox={`0 0 ${WORD.width} ${WORD.height}`}
+      shapeRendering="crispEdges"
+      aria-hidden
+      className={cn("block h-auto w-full", className)}
+    >
+      <path d={WORD.ink} fill="currentColor" />
+      <path d={WORD.stop} className="fill-accent pixel-cursor" />
+    </svg>
+  );
+}
+
 /** The 8 on its own. `tile` puts it in paper on an oxblood square (favicon, avatar). */
 export function Mark({ className, tile = false }: { className?: string; tile?: boolean }) {
   const d = pathOf(cellsOf(EIGHT));

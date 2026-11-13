@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { site, whatsappHref } from "@/content/site";
 import { Wordmark } from "@/components/ui/Logo";
+import { MegaWordmark } from "@/components/ui/Pixel";
 import { navLinks } from "./Header";
 
 const year = new Date().getFullYear();
@@ -97,6 +98,9 @@ export function Footer() {
             </Link>
           </p>
         </div>
+      </div>
+      <div className="container-site pt-4 pb-[max(1.5rem,env(safe-area-inset-bottom))]">
+        <MegaWordmark className="text-ink" />
       </div>
     </footer>
   );

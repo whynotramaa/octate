@@ -33,7 +33,7 @@
   --text-display: clamp(2.75rem, 2rem + 3.6vw, 5.25rem);
   --text-display--line-height: 0.98;
   --text-display--letter-spacing: -0.02em;
-  --text-h2: clamp(2.1rem, 1.6rem + 2.6vw, 4rem);
+  --text-h2: clamp(2.3rem, 1.5rem + 3.6vw, 5.25rem);
   --text-h2--line-height: 1.02;
   --text-h2--letter-spacing: -0.015em;
   --text-h3: clamp(1.45rem, 1.3rem + 0.7vw, 1.9rem);
@@ -865,4 +865,252 @@ details > summary::-webkit-details-marker {
 .defer-render {
   content-visibility: auto;
   contain-intrinsic-size: auto 1000px;
+}
+
+/* =====================================================================
+   v2: award-scale staging
+   ===================================================================== */
+
+/* ---- Hero ---------------------------------------------------------- */
+.hero-h1 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(3rem, 1rem + 7.4vw, 8.4rem);
+  line-height: 0.92;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+}
+@media (min-width: 1024px) {
+  .hero-h1 {
+    text-wrap: nowrap;
+  }
+  .hero-line {
+    display: block;
+  }
+}
+/* the live site inside the sentence */
+.hero-inline {
+  position: relative;
+  display: inline-block;
+  width: 1.85em;
+  height: 0.76em;
+  vertical-align: -0.04em;
+  border-radius: 999px;
+  overflow: hidden;
+  box-shadow:
+    0 0 0 1px var(--color-rule),
+    var(--shadow-lift);
+  background: var(--color-paper-2);
+}
+.hero-inline .cs {
+  inset: 0 auto auto 0;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 10;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .hero-inline {
+    animation: aperture 1s var(--ease-out) 0.35s both;
+  }
+  .hero-inline .cs {
+    animation: settle 1.4s var(--ease-out) 0.35s both;
+  }
+}
+@keyframes aperture {
+  from {
+    clip-path: inset(0 46% round 999px);
+  }
+  to {
+    clip-path: inset(0 0 round 999px);
+  }
+}
+@keyframes settle {
+  from {
+    transform: scale(1.25);
+  }
+  to {
+    transform: none;
+  }
+}
+/* the full stop: the oxblood pixel, blinking like a cursor */
+.hero-stop {
+  display: inline-block;
+  width: 0.15em;
+  height: 0.15em;
+  margin-left: 0.05em;
+  background: var(--color-accent);
+}
+/* construction grid behind the hero */
+.hero-grid {
+  --cols: 4;
+  --line: rgb(217 210 199 / 0.3);
+  background-image: linear-gradient(to right, var(--line) 1px, transparent 1px);
+  background-size: calc(
+      (min(100vw, 75rem + 2 * var(--spacing-gutter)) - 2 * var(--spacing-gutter)) / var(--cols)
+    )
+    100%;
+  background-position: max(var(--spacing-gutter), calc((100vw - 75rem) / 2)) 0;
+  mask-image: linear-gradient(to bottom, black 55%, transparent);
+}
+@media (min-width: 1024px) {
+  .hero-grid {
+    --cols: 12;
+    --line: rgb(217 210 199 / 0.6);
+  }
+}
+/* the booking request breathes: in, hold, out, in again */
+@keyframes toast-breathe {
+  0%,
+  82% {
+    opacity: 1;
+    transform: none;
+  }
+  88% {
+    opacity: 0;
+    transform: translate3d(0, -6px, 0);
+  }
+  92% {
+    opacity: 0;
+    transform: translate3d(0, 10px, 0);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .hero-toast {
+    animation: toast-breathe 8s var(--ease-out) 2.5s infinite;
+  }
+}
+
+/* ---- Problem: cards pile up as you scroll ---------------------------- */
+@media (min-width: 1024px) {
+  .stack-card {
+    position: sticky;
+    top: calc(5.5rem + var(--stack-i, 0) * 2.25rem);
+    min-height: calc(100vh - 7.5rem - var(--stack-i, 0) * 2.25rem);
+  }
+  /* dwell: each card gets a moment alone before the next one slides over it */
+  .stack-card:not(:last-child) {
+    margin-bottom: 38vh;
+  }
+}
+
+/* ---- Work: pinned horizontal showcase ------------------------------- */
+.work-rail {
+  display: grid;
+  gap: 3.5rem;
+  max-width: calc(var(--container-site) + 2 * var(--spacing-gutter));
+  margin-inline: auto;
+  padding: 0 var(--spacing-gutter) var(--spacing-section);
+}
+@media (min-width: 768px) {
+  .work-rail {
+    grid-template-columns: 1fr 1fr;
+    column-gap: 2rem;
+  }
+}
+@media (min-width: 1024px) {
+  @supports (animation-timeline: view()) {
+    .work-track {
+      height: 320vh;
+      view-timeline: --work block;
+    }
+    .work-pin {
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding-top: 4.5rem;
+      overflow: hidden;
+    }
+    .work-rail {
+      display: flex;
+      gap: 3vw;
+      width: max-content;
+      max-width: none;
+      margin: 0;
+      padding: 0 max(var(--spacing-gutter), calc((100vw - var(--container-site)) / 2));
+      animation: work-slide linear both;
+      animation-timeline: --work;
+      animation-range: contain 4% contain 96%;
+    }
+    .work-slide {
+      flex: none;
+      width: min(50vw, 48rem);
+    }
+  }
+}
+@keyframes work-slide {
+  to {
+    transform: translate3d(calc(-100% + 100vw), 0, 0);
+  }
+}
+
+/* ---- Why: editorial index rows -------------------------------------- */
+.why-title {
+  transition: color var(--duration-base) var(--ease-out);
+}
+@media (hover: hover) and (min-width: 1024px) {
+  .why-icon {
+    width: 0;
+    opacity: 0;
+    margin-right: -1.25rem;
+    transition:
+      width var(--duration-base) var(--ease-out),
+      opacity var(--duration-base) var(--ease-out),
+      margin var(--duration-base) var(--ease-out);
+  }
+  .why-row:hover .why-icon {
+    width: 0.62em;
+    opacity: 1;
+    margin-right: 0;
+  }
+  .why-row:hover .why-title {
+    color: var(--color-accent);
+  }
+}
+
+/* ---- Pixel cursor (desktop, fine pointers only; native cursor stays) - */
+.px-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 60;
+  width: 10px;
+  height: 10px;
+  pointer-events: none;
+  background: var(--color-accent);
+  transition:
+    width var(--duration-base) var(--ease-out),
+    height var(--duration-base) var(--ease-out),
+    margin var(--duration-base) var(--ease-out),
+    background-color var(--duration-micro),
+    opacity var(--duration-base);
+  opacity: 0;
+  will-change: transform;
+}
+.px-cursor[data-on] {
+  opacity: 1;
+}
+.px-cursor[data-dark] {
+  background: var(--color-accent-on-dark);
+}
+.px-cursor[data-hover] {
+  width: 34px;
+  height: 34px;
+  margin: -12px 0 0 -12px;
+  background: transparent;
+  box-shadow: inset 0 0 0 2px var(--color-accent);
+}
+.px-cursor[data-hover][data-dark] {
+  box-shadow: inset 0 0 0 2px var(--color-accent-on-dark);
+}
+@media (hover: none), (pointer: coarse), (prefers-reduced-motion: reduce) {
+  .px-cursor {
+    display: none;
+  }
 }
