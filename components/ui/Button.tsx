@@ -22,12 +22,11 @@ const base =
   "active:translate-y-px disabled:pointer-events-none disabled:opacity-50";
 
 const variants: Record<ButtonVariant, string> = {
-  primary: "bg-accent text-paper hover:bg-accent-hover shadow-[inset_0_-2px_0_rgb(0_0_0/0.18)]",
+  primary: "bg-ink text-paper hover:bg-ink-3",
   secondary: "text-ink shadow-[inset_0_0_0_1.5px_var(--color-ink)] hover:bg-ink hover:text-paper",
-  ghost: "text-ink px-0! hover:text-accent",
-  "primary-dark": "bg-paper text-ink hover:bg-accent-on-dark",
-  "secondary-dark":
-    "text-paper shadow-[inset_0_0_0_1.5px_var(--color-paper)] hover:bg-paper hover:text-ink",
+  ghost: "text-ink px-0! hover:opacity-70",
+  "primary-dark": "bg-accent text-accent-ink hover:bg-accent-hover",
+  "secondary-dark": "text-paper bg-ink-3 hover:bg-paper hover:text-ink",
 };
 
 const sizes: Record<ButtonSize, string> = {

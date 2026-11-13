@@ -68,7 +68,7 @@ export function EightDots({
                 ? on
                   ? onDark
                     ? "bg-accent-on-dark"
-                    : "bg-accent"
+                    : "bg-ink"
                   : "border border-current opacity-50"
                 : on
                   ? "bg-current"
@@ -108,7 +108,7 @@ export function Timeline({
                   d === 7
                     ? onDark
                       ? "bg-accent-on-dark"
-                      : "bg-accent"
+                      : "bg-ink"
                     : onDark
                       ? "bg-paper"
                       : "bg-ink",
@@ -157,7 +157,7 @@ export function Timeline({
                 i === steps.length - 1
                   ? onDark
                     ? "bg-accent-on-dark"
-                    : "bg-accent"
+                    : "bg-ink"
                   : onDark
                     ? "bg-paper"
                     : "bg-ink",

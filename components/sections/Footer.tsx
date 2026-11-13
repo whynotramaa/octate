@@ -1,29 +1,28 @@
 import Link from "next/link";
 import { site, whatsappHref } from "@/content/site";
-import { Wordmark } from "@/components/ui/Logo";
 import { MegaWordmark } from "@/components/ui/Pixel";
 import { navLinks } from "./Header";
 
 const year = new Date().getFullYear();
 
-/** Footer: wordmark, one-line description, nav, contact, location, socials, legal. */
+/** Footer: dark, quiet columns, then the pixel wordmark set edge to edge. */
 export function Footer() {
-  const col = "label mb-4 text-muted";
-  const link = "transition-colors duration-(--duration-micro) hover:text-accent";
+  const head = "text-muted-dark mb-4 text-[0.8125rem]";
+  const link = "text-paper/85 transition-colors duration-(--duration-micro) hover:text-accent";
   return (
-    <footer className="defer-render border-rule bg-paper-2 border-t">
-      <div className="container-site grid gap-12 py-16 md:grid-cols-12 md:py-20">
+    <footer className="on-dark bg-ink text-paper defer-render">
+      <div className="container-site grid gap-12 pt-20 pb-14 md:grid-cols-12 md:pt-24">
         <div className="md:col-span-5">
-          <Link href="/" aria-label="octate studio, home" className="inline-flex items-center">
-            <Wordmark withStudio className="h-[35px]" />
-          </Link>
-          <p className="text-muted mt-5 max-w-[36ch]">
-            Premium websites, live in 7 days. Web, ads and tech for growing businesses.
+          <p className="max-w-[24ch] text-[clamp(1.5rem,1.2rem+1vw,2.25rem)] leading-[1.15] font-semibold tracking-[-0.03em]">
+            Premium websites, live in 7 days.
+          </p>
+          <p className="text-muted-dark mt-4 max-w-[36ch] text-[0.9375rem]">
+            Web, ads and tech for clinics, med spas and growing local businesses.
           </p>
         </div>
         <nav aria-label="Footer" className="md:col-span-2">
-          <p className={col}>Studio</p>
-          <ul className="space-y-2.5">
+          <p className={head}>Studio</p>
+          <ul className="space-y-2.5 text-[0.9375rem]">
             {[
               ...navLinks,
               { href: "/contact", label: "Contact" },
@@ -38,8 +37,8 @@ export function Footer() {
           </ul>
         </nav>
         <div className="md:col-span-3">
-          <p className={col}>Talk to us</p>
-          <ul className="space-y-2.5">
+          <p className={head}>Talk to us</p>
+          <ul className="space-y-2.5 text-[0.9375rem]">
             <li>
               <a href={`mailto:${site.email}`} className={link}>
                 {site.email}
@@ -56,13 +55,13 @@ export function Footer() {
                 WhatsApp
               </a>
             </li>
-            <li className="text-muted">Based in {site.city}</li>
-            <li className="text-muted">Serving {site.serving}</li>
+            <li className="text-muted-dark">Based in {site.city}</li>
+            <li className="text-muted-dark">Serving {site.serving}</li>
           </ul>
         </div>
         <div className="md:col-span-2">
-          <p className={col}>Elsewhere</p>
-          <ul className="space-y-2.5">
+          <p className={head}>Elsewhere</p>
+          <ul className="space-y-2.5 text-[0.9375rem]">
             <li>
               <a
                 href={site.instagram}
@@ -87,7 +86,8 @@ export function Footer() {
         </div>
       </div>
       <div className="container-site">
-        <div className="border-rule text-small text-muted flex flex-col gap-3 border-t py-6 sm:flex-row sm:items-center sm:justify-between">
+        <MegaWordmark className="text-paper" />
+        <div className="text-muted-dark flex flex-col gap-3 border-t border-[var(--color-rule-dark)] py-6 text-[0.8125rem] sm:flex-row sm:items-center sm:justify-between">
           <p>© {year} octate studio. All rights reserved.</p>
           <p className="flex gap-6">
             <Link href="/privacy" className={link}>
@@ -98,9 +98,6 @@ export function Footer() {
             </Link>
           </p>
         </div>
-      </div>
-      <div className="container-site pt-4 pb-[max(1.5rem,env(safe-area-inset-bottom))]">
-        <MegaWordmark className="text-ink" />
       </div>
     </footer>
   );

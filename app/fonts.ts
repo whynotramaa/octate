@@ -9,15 +9,6 @@ import localFont from "next/font/local";
  *   They sit FIRST in the stack with a unicode-range, so they only download when a price needs them.
  */
 
-export const display = localFont({
-  src: "./fonts/Zarathustra-Regular.otf",
-  weight: "400",
-  style: "normal",
-  display: "swap",
-  variable: "--font-zarathustra",
-  adjustFontFallback: "Times New Roman",
-});
-
 export const text = localFont({
   src: [
     { path: "./fonts/Coconat-Regular.woff2", weight: "400", style: "normal" },
@@ -52,6 +43,6 @@ export const deva = localFont({
   declarations: [{ prop: "unicode-range", value: "U+0900-097F" }],
 });
 
-export const fontVariables = [display.variable, text.variable, rupee.variable, deva.variable].join(
+export const fontVariables = [text.variable, rupee.variable, deva.variable].join(
   " ",
 );

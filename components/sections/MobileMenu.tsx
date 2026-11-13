@@ -66,7 +66,7 @@ export function MobileMenu({ links }: { links: readonly { href: string; label: s
                     href={l.href}
                     onClick={() => ref.current?.close()}
                     aria-current={pathname === l.href ? "page" : undefined}
-                    className="font-display aria-[current=page]:text-accent flex items-baseline justify-between py-4 text-[2.5rem] leading-none"
+                    className="font-display flex items-baseline justify-between py-4 text-[2.5rem] leading-none aria-[current=page]:underline"
                   >
                     {l.label}
                     <span className="numeral text-muted text-[0.75rem]">
@@ -84,7 +84,7 @@ export function MobileMenu({ links }: { links: readonly { href: string; label: s
             target="_blank"
             rel="noopener noreferrer"
             data-track="cta_book_call"
-            className="bg-accent text-paper flex h-13 items-center justify-center rounded-full font-semibold"
+            className="bg-ink text-paper flex h-13 items-center justify-center rounded-full font-semibold"
           >
             Book a 15-min call
           </a>

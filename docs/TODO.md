@@ -1,6 +1,11 @@
 # Placeholders and decisions for the owner
 
-Updated at checkpoint 1. Every item also has a `TODO(owner)` comment in code.
+Updated for the v3 redesign. Every item also has a `TODO(owner)` comment in code where relevant.
+
+## Brief changes made in v3 (please confirm)
+- Palette is now white / near-black with one lime signal (#D4FF3A). The brief's oxblood and
+  beige "warm editorial" direction is retired, following the reference images.
+- Type is Coconat only (Regular for headlines, Demi for small UI). Zarathustra removed.
 
 ## Contact and links (`content/site.ts`)
 - [ ] City. Filled as "Bengaluru, India" as a guess.
@@ -11,7 +16,7 @@ Updated at checkpoint 1. Every item also has a `TODO(owner)` comment in code.
 
 ## Numbers (`content/stats.ts`)
 - [ ] "10+ projects shipped" (you said close to a dozen; raise only if true).
-- [ ] "1M+ impressions" (you said millions; say "2M+" etc. only if you can back it).
+- [ ] "1M+ impressions" (you said millions; say more only if you can back it).
 
 ## FAQ facts (`content/faq.ts`)
 - [ ] Which med spa booking tools we support.
@@ -21,6 +26,13 @@ Updated at checkpoint 1. Every item also has a `TODO(owner)` comment in code.
 ## Copy deck approvals (`docs/copy/copy-deck-v2.md`)
 - [ ] Five proposed guarantees, each marked NEEDS OWNER APPROVAL.
 
+## Work
+- [ ] Real client projects (screenshots + measured speed). The homepage currently has no work
+      section; add one once real projects exist rather than showing concepts.
+
 ## Fonts
-- Zarathustra (Lorène Ceccon) and Coconat (Collletttivo), both SIL OFL 1.1. Licences sit next to the files in `app/fonts/`.
-- ₹ comes from a renamed Radio Canada subset, रू from a renamed Noto Sans Devanagari subset (both OFL).
+- Coconat (Collletttivo), SIL OFL 1.1, licence in `app/fonts/`.
+- ₹ and रू come from renamed Radio Canada / Noto Sans Devanagari subsets (OFL).
+
+## Map
+- `public/reach-map.svg` generated from Natural Earth data (world-atlas, public domain).

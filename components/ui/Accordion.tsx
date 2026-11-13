@@ -32,7 +32,7 @@ export function Accordion({
             className={cn(
               "flex cursor-pointer items-start justify-between gap-6 py-5 md:py-6",
               "transition-colors duration-(--duration-micro)",
-              onDark ? "hover:text-accent-on-dark" : "hover:text-accent",
+              onDark ? "hover:text-accent-on-dark" : "hover:opacity-60",
             )}
           >
             <span className="flex gap-4 md:gap-6">

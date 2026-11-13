@@ -52,7 +52,7 @@ export function Badge({ className, children }: { className?: string; children: R
   return (
     <span
       className={cn(
-        "label bg-accent text-paper inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[0.6875rem]",
+        "label bg-accent text-accent-ink inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-[0.6875rem]",
         className,
       )}
     >

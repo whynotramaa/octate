@@ -15,7 +15,7 @@ export function FoundingBanner({ className, now }: { className?: string; now?: D
   return (
     <div
       className={cn(
-        "bg-accent text-paper flex flex-col gap-4 rounded-lg px-5 py-4 sm:flex-row sm:items-center sm:justify-between md:px-7",
+        "bg-ink text-paper flex flex-col gap-4 rounded-lg px-5 py-4 sm:flex-row sm:items-center sm:justify-between md:px-7",
         className,
       )}
     >

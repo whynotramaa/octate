@@ -105,7 +105,7 @@ export function Wordmark({
         <path
           d={WORD.stop}
           className={cn(
-            onDark ? "fill-accent-on-dark" : "fill-accent",
+            onDark ? "fill-accent-on-dark" : "fill-ink",
             "group-hover/wm:animate-[blink_0.9s_steps(1)_2]",
           )}
         />

@@ -20,8 +20,8 @@ const control =
   "w-full rounded-md bg-paper px-4 text-body text-ink placeholder:text-muted/70 " +
   "shadow-[inset_0_0_0_1px_var(--color-rule)] transition-shadow duration-(--duration-micro) " +
   "hover:shadow-[inset_0_0_0_1px_var(--color-muted)] " +
-  "focus:outline-none focus-visible:outline-none focus:shadow-[inset_0_0_0_1.5px_var(--color-ink),0_0_0_4px_rgb(107_30_46/0.12)] " +
-  "aria-[invalid=true]:shadow-[inset_0_0_0_1.5px_var(--color-accent)]";
+  "focus:outline-none focus-visible:outline-none focus:shadow-[inset_0_0_0_1.5px_var(--color-ink),0_0_0_4px_rgb(11_11_11/0.08)] " +
+  "aria-[invalid=true]:shadow-[inset_0_0_0_1.5px_var(--color-error)]";
 
 export function Field(
   props: BaseProps &
@@ -120,8 +120,8 @@ export function Field(
         </p>
       ) : null}
       {error ? (
-        <p id={`${id}-error`} className="text-small text-accent flex items-center gap-2">
-          <span aria-hidden className="bg-accent size-1.5 rounded-full" />
+        <p id={`${id}-error`} className="text-small text-error flex items-center gap-2">
+          <span aria-hidden className="bg-error size-1.5 rounded-full" />
           {error}
         </p>
       ) : null}

@@ -1,10 +1,9 @@
 import type { Metadata } from "next";
-import { Offer, Process, HomeFaq } from "@/components/sections/Home";
-import { HeroV2 } from "@/components/sections/HeroV2";
-import { ProblemStack } from "@/components/sections/ProblemStack";
-import { WorkShowcase } from "@/components/sections/WorkShowcase";
-import { WhyIndex } from "@/components/sections/WhyIndex";
-import { CTABand } from "@/components/ui/CTABand";
+import { HeroV3 } from "@/components/v3/Hero";
+import { ServicesV3 } from "@/components/v3/Services";
+import { WhyV3 } from "@/components/v3/Why";
+import { DialV3 } from "@/components/v3/Dial";
+import { ReachV3, LeadsV3, SpeedV3, PricingV3, FaqV3, CtaV3 } from "@/components/v3/Sections";
 import { JsonLd } from "@/components/ui/JsonLd";
 import { faqsByTag } from "@/content/faq";
 import { faqLd, organizationLd } from "@/lib/jsonld";
@@ -16,7 +15,7 @@ export const metadata: Metadata = {
   alternates: { canonical: "/" },
 };
 
-// Founding prices and banner re-check hourly, so they switch off on their own after the cutoff date.
+// Founding prices re-check hourly, so they switch off on their own after the cutoff date.
 export const revalidate = 3600;
 
 export default function HomePage() {
@@ -24,18 +23,16 @@ export default function HomePage() {
     <>
       <JsonLd data={organizationLd()} />
       <JsonLd data={faqLd(faqsByTag("home"))} />
-      <HeroV2 />
-      <ProblemStack />
-      <WorkShowcase />
-      <Offer />
-      <Process />
-      <WhyIndex />
-      <HomeFaq />
-      <CTABand
-        dark
-        title="Let's see what your site could look like."
-        sub="Book a 15-minute call. We'll come with ideas specific to your business, not a sales script."
-      />
+      <HeroV3 />
+      <ServicesV3 />
+      <WhyV3 />
+      <DialV3 />
+      <LeadsV3 />
+      <ReachV3 />
+      <SpeedV3 />
+      <PricingV3 />
+      <FaqV3 />
+      <CtaV3 />
     </>
   );
 }

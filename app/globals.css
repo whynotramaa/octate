@@ -7,25 +7,32 @@
    ===================================================================== */
 
 @theme {
-  /* Colour: paper, ink, one accent. Contrast notes are for AA checks. */
-  --color-paper: #f6f3ee; /* base */
-  --color-paper-2: #ede8e0; /* bands, cards */
-  --color-paper-3: #e4ded4; /* pressed, borders on paper-2 */
-  --color-ink: #141414; /* text, dark sections */
-  --color-ink-2: #201f1d; /* raised surface inside dark sections */
-  --color-muted: #5e5852; /* secondary text: 6.3:1 on paper, 5.7:1 on paper-2 */
-  --color-muted-dark: #a8a099; /* secondary text on ink: 7.2:1 */
-  --color-rule: #d9d2c7; /* hairlines on paper */
-  --color-rule-dark: #3a3734; /* hairlines on ink */
-  --color-accent: #6b1e2e; /* oxblood: 10:1 on paper. Never on ink. */
-  --color-accent-hover: #561623;
-  --color-accent-on-dark: #d9a0a9; /* accent inside ink sections: 8.4:1 on ink */
-  --color-focus: #6b1e2e;
+  /* Colour v3: white and near-black canvases, one lime signal.
+     Lime is a FILL or text-on-dark only; never lime text on white. */
+  --color-paper: #fafaf8;
+  --color-paper-2: #f2f2ef;
+  --color-paper-3: #e7e7e3;
+  --color-ink: #0b0b0b;
+  --color-ink-2: #161616;
+  --color-ink-3: #1f1f1f;
+  --color-muted: #63625e; /* 6.0:1 on paper */
+  --color-muted-dark: #9b9a95; /* 7.3:1 on ink */
+  --color-rule: #e4e3df;
+  --color-rule-dark: #262626;
+  --color-accent: #d4ff3a; /* lime: fills, text on dark */
+  --color-accent-hover: #c3f01f;
+  --color-accent-on-dark: #d4ff3a;
+  --color-accent-ink: #0b0b0b; /* text on lime */
+  --color-focus: #0b0b0b;
+  --color-error: #c2362f; /* 5.3:1 on paper */
+  --color-card-green: #1f9d55;
+  --color-card-yellow: #f6cf45;
+  --color-card-blue: #2f5be0;
+  --color-card-red: #e8505b;
 
   /* Type families (see app/fonts.ts). Glyph subsets first: they only cover ₹ and Devanagari. */
   --font-display:
-    var(--font-rupee), var(--font-deva), var(--font-zarathustra), var(--font-coconat), Georgia,
-    serif;
+    var(--font-rupee), var(--font-deva), var(--font-coconat), ui-sans-serif, sans-serif;
   --font-sans:
     var(--font-rupee), var(--font-deva), var(--font-coconat), ui-sans-serif, system-ui, sans-serif;
 
@@ -113,6 +120,7 @@
   h3 {
     font-family: var(--font-display);
     font-weight: 400;
+    letter-spacing: -0.035em;
     text-wrap: balance;
   }
   p {
@@ -120,7 +128,7 @@
   }
   ::selection {
     background: var(--color-accent);
-    color: var(--color-paper);
+    color: var(--color-ink);
   }
   :focus-visible {
     outline: 2px solid var(--color-focus);
@@ -159,8 +167,7 @@
 /* Numbers set in Coconat Bold (wide). Tabular so stats don't jitter. */
 /* Numbers are set in the display serif (Zarathustra), the same voice as the headlines. */
 @utility numeral {
-  font-family:
-    var(--font-rupee), var(--font-deva), var(--font-zarathustra), var(--font-coconat), serif;
+  font-family: var(--font-rupee), var(--font-deva), var(--font-coconat), sans-serif;
   font-weight: 400;
   font-variant-numeric: lining-nums;
 }
@@ -170,7 +177,7 @@
 .price-display {
   display: inline-flex;
   align-items: baseline; /* the box takes the numerals' baseline, not the small symbol's */
-  font-family: var(--font-zarathustra), Georgia, serif;
+  font-family: var(--font-rupee), var(--font-deva), var(--font-coconat), sans-serif;
   font-weight: 400;
   line-height: 1;
   letter-spacing: -0.01em;
@@ -250,14 +257,14 @@ html:not([data-region]) [data-region-option="INTL"] {
 }
 @keyframes header-solidify {
   from {
-    background-color: rgb(246 243 238 / 0);
+    background-color: rgb(250 250 248 / 0);
     backdrop-filter: blur(0);
-    box-shadow: 0 1px 0 rgb(217 210 199 / 0);
+    box-shadow: 0 1px 0 rgb(228 227 223 / 0);
   }
   to {
-    background-color: rgb(246 243 238 / 0.82);
+    background-color: rgb(250 250 248 / 0.86);
     backdrop-filter: blur(10px);
-    box-shadow: 0 1px 0 rgb(217 210 199 / 1);
+    box-shadow: 0 1px 0 rgb(228 227 223 / 1);
   }
 }
 @keyframes fab-in {
@@ -299,8 +306,7 @@ details > summary::-webkit-details-marker {
 }
 
 /* =====================================================================
-   Graphics motion. Everything here is CSS: no JS, GPU-friendly
-   properties only (opacity, transform). All of it stops for reduced motion.
+   Blinking pixel: the "live" signal (logo full stop, founding chip)
    ===================================================================== */
 @keyframes blink {
   0%,
@@ -311,806 +317,373 @@ details > summary::-webkit-details-marker {
     opacity: 0;
   }
 }
-.pixel-cursor {
-  animation: blink 1.1s steps(1) infinite;
-}
-
-/* Hero: the booking request that a good site produces. Loops every 9s. */
-@keyframes toast-cycle {
-  0%,
-  8% {
-    opacity: 0;
-    transform: translate3d(0, 14px, 0) scale(0.97);
-  }
-  14%,
-  78% {
-    opacity: 1;
-    transform: translate3d(0, 0, 0) scale(1);
-  }
-  86%,
-  100% {
-    opacity: 0;
-    transform: translate3d(0, -8px, 0) scale(0.98);
-  }
-}
-@keyframes typing-cycle {
-  0%,
-  2% {
-    opacity: 0;
-  }
-  4%,
-  12% {
-    opacity: 1;
-  }
-  14%,
-  100% {
-    opacity: 0;
-  }
-}
-@keyframes dot-bounce {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-2px);
-  }
-}
-.toast-cycle {
-  animation: toast-cycle 9s var(--ease-out) infinite;
-  animation-delay: 1.2s;
-  opacity: 0;
-}
-.typing-cycle {
-  animation: typing-cycle 9s linear infinite;
-  animation-delay: 1.2s;
-  opacity: 0;
-}
-.typing-cycle > span {
-  animation: dot-bounce 0.9s ease-in-out infinite;
-}
-.typing-cycle > span:nth-child(2) {
-  animation-delay: 0.15s;
-}
-.typing-cycle > span:nth-child(3) {
-  animation-delay: 0.3s;
-}
-
-/* Hero parallax on scroll (scroll-driven, no JS) */
-@supports (animation-timeline: scroll()) {
-  @media (prefers-reduced-motion: no-preference) {
-    .parallax-slow,
-    .parallax-fast {
-      animation: parallax linear both;
-      animation-timeline: scroll(root);
-      animation-range: 0 100vh;
-    }
-    .parallax-slow {
-      --parallax: -24px;
-    }
-    .parallax-fast {
-      --parallax: -64px;
-    }
-  }
-}
-@keyframes parallax {
-  to {
-    transform: translate3d(0, var(--parallax, -40px), 0);
+@media (prefers-reduced-motion: no-preference) {
+  .pixel-cursor {
+    animation: blink 1.1s steps(1) infinite;
   }
 }
 
-/* Problem 02: a pixel cursor drifts from the dated site to the clean one and taps it */
-@keyframes cursor-path {
-  0%,
-  10% {
-    transform: translate(22%, 62%);
-  }
-  45% {
-    transform: translate(72%, 48%);
-  }
-  52% {
-    transform: translate(72%, 48%) scale(0.92);
-  }
-  58%,
-  100% {
-    transform: translate(72%, 48%) scale(1);
+/* =====================================================================
+   v3
+   ===================================================================== */
+
+/* ---- hero ---------------------------------------------------------- */
+.v3-grid {
+  --cols: 6;
+  background-image: linear-gradient(to right, rgb(11 11 11 / 0.045) 1px, transparent 1px);
+  background-size: calc(100% / var(--cols)) 100%;
+}
+@media (min-width: 1024px) {
+  .v3-grid {
+    --cols: 12;
   }
 }
-@keyframes pick {
-  0%,
-  50% {
-    box-shadow: inset 0 0 0 1px var(--color-rule);
+.v3-anchor {
+  position: relative;
+  isolation: isolate;
+}
+.v3-word {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  translate: -50% -53%;
+  z-index: -1;
+  font-size: clamp(9rem, 36vw, 36rem);
+  font-weight: 400;
+  line-height: 0.8;
+  letter-spacing: -0.075em;
+  color: var(--color-accent);
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+}
+.v3-burst {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  z-index: -1;
+  width: min(58vw, 46rem);
+  height: auto;
+  pointer-events: none;
+}
+.v3-h1 {
+  max-width: 15ch;
+  font-size: clamp(2.75rem, 1.1rem + 5.4vw, 6.75rem);
+  font-weight: 400;
+  line-height: 0.98;
+  letter-spacing: -0.05em;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .v3-burst {
+    animation:
+      burst-in 1.2s var(--ease-out) both,
+      spin 120s linear 1.2s infinite;
   }
-  56%,
-  100% {
-    box-shadow:
-      inset 0 0 0 2px var(--color-accent),
-      0 10px 24px -14px rgb(107 30 46 / 0.6);
+  .v3-word {
+    animation: word-in 1s var(--ease-out) both;
   }
 }
-@keyframes dim {
-  0%,
-  50% {
-    opacity: 1;
-  }
-  60%,
-  100% {
-    opacity: 0.45;
+@keyframes burst-in {
+  from {
+    opacity: 0;
+    scale: 0.6;
   }
 }
-[data-revealed] .cursor-run {
-  animation: cursor-path 2.6s var(--ease-in-out) 0.3s both;
+@keyframes word-in {
+  from {
+    opacity: 0;
+    letter-spacing: -0.02em;
+  }
 }
-[data-revealed] .pick-run {
-  animation: pick 2.6s var(--ease-out) 0.3s both;
-}
-[data-revealed] .dim-run {
-  animation: dim 2.6s var(--ease-out) 0.3s both;
+@keyframes spin {
+  to {
+    rotate: 360deg;
+  }
 }
 
-/* Problem 03: red pen. Struck rows fade, kept rows turn ink and change label. Heights never change. */
-@keyframes strike {
-  from {
-    transform: scaleX(0);
-  }
-  to {
-    transform: scaleX(1);
-  }
+/* ---- why: card rail aligned to the container, running off the right edge */
+.v3-rail {
+  padding-inline: max(var(--spacing-gutter), calc((100vw - var(--container-site)) / 2));
+  scroll-padding-inline: max(var(--spacing-gutter), calc((100vw - var(--container-site)) / 2));
+  scrollbar-width: none;
 }
-@keyframes row-fade {
-  to {
-    opacity: 0.38;
-  }
-}
-@keyframes row-keep {
-  to {
-    background-color: var(--color-ink);
-    color: var(--color-paper);
-    box-shadow: none;
-  }
-}
-@keyframes fade-out {
-  to {
-    opacity: 0;
-  }
-}
-@keyframes fade-in {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-@keyframes count-swap-out {
-  to {
-    opacity: 0;
-    transform: translateY(-40%);
-  }
-}
-@keyframes count-swap-in {
-  from {
-    opacity: 0;
-    transform: translateY(40%);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-.strike-line {
-  transform: scaleX(0);
-}
-.label-in,
-.count-in {
-  opacity: 0;
-}
-[data-revealed] .strike-run .strike-line {
-  animation: strike 0.35s var(--ease-out) both;
-  animation-delay: calc(0.5s + var(--i, 0) * 0.16s);
-}
-[data-revealed] .strike-run {
-  animation: row-fade 0.35s var(--ease-out) both;
-  animation-delay: calc(0.75s + var(--i, 0) * 0.16s);
-}
-[data-revealed] .keep-run {
-  animation: row-keep 0.4s var(--ease-out) 1.55s both;
-}
-[data-revealed] .keep-run .label-out {
-  animation: fade-out 0.2s linear 1.55s both;
-}
-[data-revealed] .keep-run .label-in {
-  animation: fade-in 0.3s linear 1.7s both;
-}
-[data-revealed] .count-out {
-  animation: count-swap-out 0.3s var(--ease-out) 1.55s both;
-}
-[data-revealed] .count-in {
-  animation: count-swap-in 0.4s var(--ease-out) 1.7s both;
+.v3-rail::-webkit-scrollbar {
+  display: none;
 }
 
-/* Process: the 8 is plotted as the section scrolls past (Day 0 to Day 7) */
-@keyframes plot-in {
-  from {
-    opacity: 0;
-    transform: scale(0.2);
+/* ---- dial ---------------------------------------------------------- */
+.dial-pin {
+  position: relative;
+  overflow: hidden;
+  padding-block: var(--spacing-section) 22rem;
+}
+.dial-wheel {
+  --R: 62vw;
+  --step: 15deg;
+  --total: calc(7 * var(--step));
+  --base: 270deg;
+  position: absolute;
+  left: 50%;
+  top: calc(100% - 9rem + var(--R));
+  width: 0;
+  height: 0;
+}
+@media (min-width: 1024px) {
+  .dial-pin {
+    padding-block: var(--spacing-section);
   }
-  to {
-    opacity: 1;
-    transform: scale(1);
+  .dial-wheel {
+    --R: min(64vh, 44vw);
+    --base: 180deg;
+    left: calc(100% + var(--R) * 0.32);
+    top: 50%;
   }
 }
-@keyframes step-on {
-  from {
-    transform: scaleX(0);
-  }
-  to {
-    transform: scaleX(1);
-  }
+.dial-ring {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: calc(2 * (var(--R) + var(--d)));
+  height: calc(2 * (var(--R) + var(--d)));
+  translate: -50% -50%;
+  border-radius: 50%;
+  border: 1.5px dashed rgb(11 11 11 / 0.32);
 }
-@keyframes step-label {
-  to {
-    color: var(--color-accent-on-dark);
-  }
+.dial-slot {
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform: rotate(calc(var(--base) + var(--i) * var(--step))) translateX(var(--R))
+    rotate(calc(-1 * (var(--base) + var(--i) * var(--step))));
 }
-@keyframes day-show {
-  0%,
-  100% {
-    opacity: 0;
-  }
-  1%,
-  99% {
-    opacity: 1;
-  }
+.dial-upright {
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+.dial-label {
+  position: absolute;
+  left: 0;
+  top: 0;
+  translate: -50% -50%;
+  padding: 0.12em 0.7em;
+  border-radius: 999px;
+  font-size: clamp(2rem, 1.4rem + 1.8vw, 3.75rem);
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.dial-label[data-first] {
+  background: var(--color-ink);
+  color: var(--color-accent);
+}
+.dial-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
 }
 @supports (animation-timeline: view()) {
   @media (prefers-reduced-motion: no-preference) {
-    .plot-track {
-      view-timeline: --plot block;
+    .dial-track {
+      height: 340vh;
+      view-timeline: --dial block;
     }
-    .plot-cell {
-      animation: plot-in linear both;
-      animation-timeline: --plot;
+    .dial-pin {
+      position: sticky;
+      top: 0;
+      height: 100svh;
+      display: flex;
+      align-items: flex-start;
+      padding-block: 6.5rem 0;
+    }
+    .dial-wheel {
+      animation: dial-spin linear both;
+      animation-timeline: --dial;
+      animation-range: contain 0% contain 100%;
+    }
+    .dial-upright {
+      animation: dial-counter linear both;
+      animation-timeline: --dial;
+      animation-range: contain 0% contain 100%;
+    }
+    .dial-label,
+    .dial-label[data-first] {
+      background: transparent;
+      color: var(--color-ink);
+      animation: dial-on linear both;
+      animation-timeline: --dial;
       animation-range: contain var(--a) contain var(--b);
-      transform-box: fill-box;
-      transform-origin: center;
     }
-    .plot-step::before {
-      content: "";
-      position: absolute;
-      inset: -1px 0 auto 0;
-      height: 1px;
-      background: var(--color-paper);
-      transform-origin: left;
-      animation: step-on linear both;
-      animation-timeline: --plot;
-      animation-range: contain var(--a) contain var(--b);
+    .dial-label[data-first] {
+      animation-name: dial-on-first;
     }
-    .plot-step .step-day {
-      animation: step-label linear both;
-      animation-timeline: --plot;
-      animation-range: contain var(--a) contain var(--b);
+    .dial-label[data-last] {
+      animation-name: dial-on-last;
     }
-    .plot-day {
+    .dial-steps {
+      display: grid;
+    }
+    .dial-step {
       opacity: 0;
-      animation: day-show linear both;
-      animation-timeline: --plot;
+      animation: step-show linear both;
+      animation-timeline: --dial;
       animation-range: contain var(--a) contain var(--b);
     }
-    .plot-day:last-child {
-      animation-name: plot-in;
+    .dial-step[data-first] {
+      animation-name: step-show-first;
     }
-  }
-}
-@supports not (animation-timeline: view()) {
-  .plot-day:not(:last-child) {
-    display: none;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .pixel-cursor,
-  .toast-cycle,
-  .typing-cycle,
-  .typing-cycle > span {
-    animation: none !important;
-  }
-  .toast-cycle {
-    opacity: 1;
-  }
-  .count-in,
-  .label-in {
-    opacity: 1;
-  }
-  .count-out,
-  .label-out {
-    opacity: 0;
-  }
-  .strike-line {
-    transform: none;
-  }
-  .strike-run {
-    opacity: 0.38;
-  }
-  .keep-run {
-    background-color: var(--color-ink);
-    color: var(--color-paper);
-  }
-}
-
-/* =====================================================================
-   Concept sites inside device mockups (components/graphics/ConceptScreen)
-   Sized in container query units so one design fits any frame.
-   ===================================================================== */
-.cs {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-  container-type: inline-size;
-  background: var(--cs-bg);
-  color: var(--cs-ink);
-  font-family: var(--font-coconat), sans-serif;
-}
-.cs[data-concept="skin"] {
-  --cs-bg: #f3efe8;
-  --cs-ink: #2a2420;
-  --cs-accent: #8a5a44;
-  --cs-soft: #e2d3c3;
-  --cs-serif: var(--font-zarathustra), Georgia, serif;
-}
-.cs[data-concept="spa"] {
-  --cs-bg: #f4f1ee;
-  --cs-ink: #1f2a2e;
-  --cs-accent: #4e6b66;
-  --cs-soft: #d6ded9;
-  --cs-serif: Georgia, "Times New Roman", serif;
-}
-.cs[data-concept="dental"] {
-  --cs-bg: #f1f4f6;
-  --cs-ink: #14232e;
-  --cs-accent: #2f6f8f;
-  --cs-soft: #d3e1ea;
-  --cs-serif: var(--font-coconat), system-ui, sans-serif;
-}
-.cs-nav {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 12cqw 6cqw 4cqw;
-}
-.cs-brand {
-  font-family: var(--cs-serif);
-  font-size: 5.2cqw;
-  letter-spacing: -0.01em;
-}
-.cs-burger {
-  display: flex;
-  flex-direction: column;
-  gap: 1cqw;
-}
-.cs-burger i {
-  display: block;
-  height: 0.6cqw;
-  width: 5cqw;
-  background: var(--cs-ink);
-}
-.cs-links {
-  display: flex;
-  align-items: center;
-  gap: 2.4cqw;
-  font-size: 1cqw;
-}
-.cs-links > span:not(.cs-btn) {
-  opacity: 0.75;
-}
-.cs-btn {
-  display: inline-block;
-  border-radius: 99px;
-  background: var(--cs-accent);
-  color: var(--cs-bg);
-  font-size: 3.6cqw;
-  padding: 2.6cqw 5cqw;
-  margin-top: 5cqw;
-}
-.cs-links .cs-btn {
-  font-size: inherit;
-  padding: 0.7cqw 1.5cqw;
-  margin: 0;
-}
-.cs-hero {
-  display: flex;
-  flex-direction: column;
-  gap: 5cqw;
-  padding: 2cqw 6cqw;
-}
-.cs-arch {
-  position: relative;
-  overflow: hidden;
-  order: 1;
-  background: var(--cs-soft);
-  border-radius: 40cqw 40cqw 3cqw 3cqw;
-  aspect-ratio: 1 / 0.82;
-}
-.cs-arch i {
-  position: absolute;
-  border-radius: 999px;
-  aspect-ratio: 1;
-}
-.cs-arch i:first-child {
-  background: var(--cs-accent);
-  opacity: 0.18;
-  width: 70%;
-  left: -12%;
-  bottom: -22%;
-}
-.cs-arch i:nth-child(2) {
-  background: var(--cs-bg);
-  opacity: 0.55;
-  width: 34%;
-  right: 14%;
-  top: 18%;
-}
-.cs-arch span {
-  position: absolute;
-  left: 5cqw;
-  bottom: 4cqw;
-  font-size: 2.4cqw;
-  padding: 1cqw 2.4cqw;
-  border-radius: 99px;
-  background: var(--cs-bg);
-}
-.cs-copy {
-  order: 2;
-}
-.cs-h {
-  font-family: var(--cs-serif);
-  font-size: 9.6cqw;
-  line-height: 1.02;
-  letter-spacing: -0.015em;
-}
-.cs-sub {
-  font-size: 3.5cqw;
-  line-height: 1.45;
-  margin-top: 3cqw;
-  opacity: 0.7;
-}
-.cs-chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1.6cqw;
-  margin-top: 5cqw;
-}
-.cs-chips span {
-  border-radius: 99px;
-  font-size: 2.8cqw;
-  padding: 1.2cqw 3cqw;
-  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--cs-ink) 20%, transparent);
-}
-.cs-bar {
-  position: absolute;
-  inset-inline: 0;
-  bottom: 0;
-  display: flex;
-  gap: 2.4cqw;
-  padding: 3cqw 5cqw 6cqw;
-  background: var(--cs-bg);
-  box-shadow: 0 -1px 0 color-mix(in srgb, var(--cs-ink) 8%, transparent);
-}
-.cs-bar span {
-  flex: 1;
-  text-align: center;
-  border-radius: 99px;
-  font-size: 3.4cqw;
-  padding: 2.8cqw 0;
-  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--cs-ink) 25%, transparent);
-}
-.cs-bar span:last-child {
-  flex: 1.6;
-  background: var(--cs-ink);
-  color: var(--cs-bg);
-  box-shadow: none;
-}
-
-/* desktop layout */
-.cs[data-layout="desktop"] .cs-nav {
-  padding: 2.2cqw 4cqw;
-}
-.cs[data-layout="desktop"] .cs-brand {
-  font-size: 1.7cqw;
-}
-.cs[data-layout="desktop"] .cs-hero {
-  display: grid;
-  grid-template-columns: 1.1fr 1fr;
-  align-items: center;
-  gap: 4cqw;
-  padding: 3cqw 4cqw;
-}
-.cs[data-layout="desktop"] .cs-arch {
-  order: 2;
-  border-radius: 16cqw 16cqw 1.2cqw 1.2cqw;
-  aspect-ratio: 1 / 1.05;
-}
-.cs[data-layout="desktop"] .cs-arch span {
-  left: 1.6cqw;
-  bottom: 1.4cqw;
-  font-size: 0.8cqw;
-  padding: 0.4cqw 0.9cqw;
-}
-.cs[data-layout="desktop"] .cs-copy {
-  order: 1;
-}
-.cs[data-layout="desktop"] .cs-h {
-  font-size: 4.4cqw;
-}
-.cs[data-layout="desktop"] .cs-sub {
-  font-size: 1.25cqw;
-  margin-top: 1.4cqw;
-}
-.cs[data-layout="desktop"] .cs-copy .cs-btn {
-  font-size: 1.2cqw;
-  padding: 0.9cqw 2cqw;
-  margin-top: 2.2cqw;
-}
-.cs[data-layout="desktop"] .cs-chips {
-  gap: 0.6cqw;
-  margin-top: 2.4cqw;
-}
-.cs[data-layout="desktop"] .cs-chips span {
-  font-size: 0.95cqw;
-  padding: 0.4cqw 1.1cqw;
-}
-
-/* Below-the-fold sections skip style, layout and paint until they approach the viewport.
-   `auto` in contain-intrinsic-size remembers the real height after first render (no jumpy scrollbar). */
-.defer-render {
-  content-visibility: auto;
-  contain-intrinsic-size: auto 1000px;
-}
-
-/* =====================================================================
-   v2: award-scale staging
-   ===================================================================== */
-
-/* ---- Hero ---------------------------------------------------------- */
-.hero-h1 {
-  font-family: var(--font-display);
-  font-weight: 400;
-  font-size: clamp(3rem, 1rem + 7.4vw, 8.4rem);
-  line-height: 0.92;
-  letter-spacing: -0.03em;
-  text-wrap: balance;
-}
-@media (min-width: 1024px) {
-  .hero-h1 {
-    text-wrap: nowrap;
-  }
-  .hero-line {
-    display: block;
-  }
-}
-/* the live site inside the sentence */
-.hero-inline {
-  position: relative;
-  display: inline-block;
-  width: 1.85em;
-  height: 0.76em;
-  vertical-align: -0.04em;
-  border-radius: 999px;
-  overflow: hidden;
-  box-shadow:
-    0 0 0 1px var(--color-rule),
-    var(--shadow-lift);
-  background: var(--color-paper-2);
-}
-.hero-inline .cs {
-  inset: 0 auto auto 0;
-  width: 100%;
-  height: auto;
-  aspect-ratio: 16 / 10;
-}
-@media (prefers-reduced-motion: no-preference) {
-  .hero-inline {
-    animation: aperture 1s var(--ease-out) 0.35s both;
-  }
-  .hero-inline .cs {
-    animation: settle 1.4s var(--ease-out) 0.35s both;
-  }
-}
-@keyframes aperture {
-  from {
-    clip-path: inset(0 46% round 999px);
-  }
-  to {
-    clip-path: inset(0 0 round 999px);
-  }
-}
-@keyframes settle {
-  from {
-    transform: scale(1.25);
-  }
-  to {
-    transform: none;
-  }
-}
-/* the full stop: the oxblood pixel, blinking like a cursor */
-.hero-stop {
-  display: inline-block;
-  width: 0.15em;
-  height: 0.15em;
-  margin-left: 0.05em;
-  background: var(--color-accent);
-}
-/* construction grid behind the hero */
-.hero-grid {
-  --cols: 4;
-  --line: rgb(217 210 199 / 0.3);
-  background-image: linear-gradient(to right, var(--line) 1px, transparent 1px);
-  background-size: calc(
-      (min(100vw, 75rem + 2 * var(--spacing-gutter)) - 2 * var(--spacing-gutter)) / var(--cols)
-    )
-    100%;
-  background-position: max(var(--spacing-gutter), calc((100vw - 75rem) / 2)) 0;
-  mask-image: linear-gradient(to bottom, black 55%, transparent);
-}
-@media (min-width: 1024px) {
-  .hero-grid {
-    --cols: 12;
-    --line: rgb(217 210 199 / 0.6);
-  }
-}
-/* the booking request breathes: in, hold, out, in again */
-@keyframes toast-breathe {
-  0%,
-  82% {
-    opacity: 1;
-    transform: none;
-  }
-  88% {
-    opacity: 0;
-    transform: translate3d(0, -6px, 0);
-  }
-  92% {
-    opacity: 0;
-    transform: translate3d(0, 10px, 0);
-  }
-  100% {
-    opacity: 1;
-    transform: none;
-  }
-}
-@media (prefers-reduced-motion: no-preference) {
-  .hero-toast {
-    animation: toast-breathe 8s var(--ease-out) 2.5s infinite;
-  }
-}
-
-/* ---- Problem: cards pile up as you scroll ---------------------------- */
-@media (min-width: 1024px) {
-  .stack-card {
-    position: sticky;
-    top: calc(5.5rem + var(--stack-i, 0) * 2.25rem);
-    min-height: calc(100vh - 7.5rem - var(--stack-i, 0) * 2.25rem);
-  }
-  /* dwell: each card gets a moment alone before the next one slides over it */
-  .stack-card:not(:last-child) {
-    margin-bottom: 38vh;
-  }
-}
-
-/* ---- Work: pinned horizontal showcase ------------------------------- */
-.work-rail {
-  display: grid;
-  gap: 3.5rem;
-  max-width: calc(var(--container-site) + 2 * var(--spacing-gutter));
-  margin-inline: auto;
-  padding: 0 var(--spacing-gutter) var(--spacing-section);
-}
-@media (min-width: 768px) {
-  .work-rail {
-    grid-template-columns: 1fr 1fr;
-    column-gap: 2rem;
+    .dial-step[data-last] {
+      animation-name: step-show-last;
+    }
   }
 }
 @media (min-width: 1024px) {
   @supports (animation-timeline: view()) {
-    .work-track {
-      height: 320vh;
-      view-timeline: --work block;
-    }
-    .work-pin {
-      position: sticky;
-      top: 0;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      padding-top: 4.5rem;
-      overflow: hidden;
-    }
-    .work-rail {
-      display: flex;
-      gap: 3vw;
-      width: max-content;
-      max-width: none;
-      margin: 0;
-      padding: 0 max(var(--spacing-gutter), calc((100vw - var(--container-site)) / 2));
-      animation: work-slide linear both;
-      animation-timeline: --work;
-      animation-range: contain 4% contain 96%;
-    }
-    .work-slide {
-      flex: none;
-      width: min(50vw, 48rem);
+    @media (prefers-reduced-motion: no-preference) {
+      .dial-pin {
+        align-items: center;
+        padding-block: 0;
+      }
     }
   }
 }
-@keyframes work-slide {
+@keyframes dial-spin {
   to {
-    transform: translate3d(calc(-100% + 100vw), 0, 0);
+    rotate: calc(-1 * var(--total));
   }
 }
-
-/* ---- Why: editorial index rows -------------------------------------- */
-.why-title {
-  transition: color var(--duration-base) var(--ease-out);
+@keyframes dial-counter {
+  to {
+    rotate: var(--total);
+  }
 }
-@media (hover: hover) and (min-width: 1024px) {
-  .why-icon {
-    width: 0;
-    opacity: 0;
-    margin-right: -1.25rem;
-    transition:
-      width var(--duration-base) var(--ease-out),
-      opacity var(--duration-base) var(--ease-out),
-      margin var(--duration-base) var(--ease-out);
+@keyframes dial-on {
+  0%,
+  100% {
+    background: transparent;
+    color: var(--color-ink);
   }
-  .why-row:hover .why-icon {
-    width: 0.62em;
-    opacity: 1;
-    margin-right: 0;
-  }
-  .why-row:hover .why-title {
+  25%,
+  75% {
+    background: var(--color-ink);
     color: var(--color-accent);
   }
 }
-
-/* ---- Pixel cursor (desktop, fine pointers only; native cursor stays) - */
-.px-cursor {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 60;
-  width: 10px;
-  height: 10px;
-  pointer-events: none;
-  background: var(--color-accent);
-  transition:
-    width var(--duration-base) var(--ease-out),
-    height var(--duration-base) var(--ease-out),
-    margin var(--duration-base) var(--ease-out),
-    background-color var(--duration-micro),
-    opacity var(--duration-base);
-  opacity: 0;
-  will-change: transform;
-}
-.px-cursor[data-on] {
-  opacity: 1;
-}
-.px-cursor[data-dark] {
-  background: var(--color-accent-on-dark);
-}
-.px-cursor[data-hover] {
-  width: 34px;
-  height: 34px;
-  margin: -12px 0 0 -12px;
-  background: transparent;
-  box-shadow: inset 0 0 0 2px var(--color-accent);
-}
-.px-cursor[data-hover][data-dark] {
-  box-shadow: inset 0 0 0 2px var(--color-accent-on-dark);
-}
-@media (hover: none), (pointer: coarse), (prefers-reduced-motion: reduce) {
-  .px-cursor {
-    display: none;
+@keyframes dial-on-first {
+  0%,
+  75% {
+    background: var(--color-ink);
+    color: var(--color-accent);
   }
+  100% {
+    background: transparent;
+    color: var(--color-ink);
+  }
+}
+@keyframes dial-on-last {
+  0% {
+    background: transparent;
+    color: var(--color-ink);
+  }
+  25%,
+  100% {
+    background: var(--color-ink);
+    color: var(--color-accent);
+  }
+}
+@keyframes step-show {
+  0%,
+  100% {
+    opacity: 0;
+  }
+  20%,
+  80% {
+    opacity: 1;
+  }
+}
+@keyframes step-show-first {
+  0%,
+  80% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes step-show-last {
+  0% {
+    opacity: 0;
+  }
+  20%,
+  100% {
+    opacity: 1;
+  }
+}
+
+/* ---- speed radar ---------------------------------------------------- */
+@media (prefers-reduced-motion: no-preference) {
+  .radar-sweep {
+    transform-origin: 0 0;
+    animation: spin 6s linear infinite;
+  }
+  .radar-ping {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: ping 2s var(--ease-out) infinite;
+  }
+}
+@keyframes ping {
+  from {
+    opacity: 0.8;
+    scale: 1;
+  }
+  to {
+    opacity: 0;
+    scale: 3;
+  }
+}
+
+/* ---- leads: lines draw, dots pop ------------------------------------ */
+.wire {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 0;
+}
+@media (prefers-reduced-motion: no-preference) {
+  html.js .wire {
+    stroke-dashoffset: 1;
+  }
+  html.js .node {
+    scale: 0;
+  }
+  [data-revealed] .wire {
+    animation: draw 1.1s var(--ease-in-out) both;
+    animation-delay: calc(0.3s + var(--k, 0) * 0.12s);
+  }
+  [data-revealed] .node {
+    transform-box: fill-box;
+    transform-origin: center;
+    animation: pop 0.5s var(--ease-out) both;
+    animation-delay: calc(var(--k, 0) * 0.08s);
+  }
+}
+@keyframes draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@keyframes pop {
+  from {
+    scale: 0;
+  }
+  to {
+    scale: 1;
+  }
+}
+
+/* ---- reach: deep green night, like the reference ------------------- */
+.v3-reach {
+  background:
+    radial-gradient(120% 80% at 70% 0%, #12301c 0%, transparent 60%),
+    radial-gradient(90% 70% at 10% 100%, #0d2414 0%, transparent 60%), #07120b;
 }

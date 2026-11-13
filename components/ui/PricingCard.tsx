@@ -105,7 +105,7 @@ export function PricingCard({
               aria-hidden
               className={cn(
                 "mt-[0.55em] size-1.5 shrink-0 rounded-full",
-                featured ? "bg-accent-on-dark" : "bg-accent",
+                featured ? "bg-accent-on-dark" : "bg-ink",
               )}
             />
             {item}

@@ -27,7 +27,7 @@ export function ComparisonTable({ className }: { className?: string }) {
                 <span className="font-display text-[1.5rem] leading-none font-normal">
                   {t.name}
                 </span>
-                {t.badge ? <span className="label text-accent mt-1 block">{t.badge}</span> : null}
+                {t.badge ? <span className="label text-muted mt-1 block">{t.badge}</span> : null}
               </th>
             ))}
           </tr>
@@ -47,7 +47,7 @@ export function ComparisonTable({ className }: { className?: string }) {
                   <td key={t.id} className={cn("px-4 py-4", t.badge && "bg-paper-2/60")}>
                     {v === true ? (
                       <span className="inline-flex items-center gap-2">
-                        <svg viewBox="0 0 16 16" className="text-accent size-4" aria-hidden>
+                        <svg viewBox="0 0 16 16" className="text-ink size-4" aria-hidden>
                           <path
                             d="m3 8.5 3 3L13 4.5"
                             fill="none"

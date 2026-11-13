@@ -27,7 +27,7 @@ export function TextLink({
     "group/link inline-flex items-center gap-1.5 font-semibold",
     "bg-[linear-gradient(currentColor,currentColor)] bg-[length:0%_1.5px] bg-left-bottom bg-no-repeat pb-0.5",
     "transition-[background-size,color] duration-(--duration-base) ease-(--ease-out) hover:bg-[length:100%_1.5px]",
-    onDark ? "text-paper hover:text-accent-on-dark" : "text-ink hover:text-accent",
+    onDark ? "text-paper hover:text-accent-on-dark" : "text-ink hover:opacity-70",
     className,
   );
   const inner = (
