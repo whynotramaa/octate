@@ -25,7 +25,11 @@ export function CTABand({
 }) {
   return (
     <section
-      className={cn("py-section defer-render", dark ? "on-dark bg-ink text-paper" : "bg-paper-2", className)}
+      className={cn(
+        "py-section defer-render",
+        dark ? "on-dark bg-ink text-paper" : "bg-paper-2",
+        className,
+      )}
     >
       <div className="container-site grid gap-10 lg:grid-cols-12 lg:items-end">
         <div className="lg:col-span-8">

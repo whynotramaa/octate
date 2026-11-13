@@ -3,7 +3,8 @@ import localFont from "next/font/local";
 /**
  * Type system
  * - Display: Zarathustra (Lorène Ceccon, OFL). A 1908 Jugendstil book face revival. Headlines only.
- * - Text/UI: Coconat (Collletttivo, OFL). Regular for reading, Demi for UI, Bold (wide) for numbers.
+ * - Text/UI: Coconat (Collletttivo, OFL). Regular for reading, Demi for UI.
+ * - Numbers: Zarathustra figures with a small raised currency symbol (see .price-display).
  * - Glyph fallbacks: tiny subsets for ₹ and रू, since neither family draws them.
  *   They sit FIRST in the stack with a unicode-range, so they only download when a price needs them.
  */
@@ -24,19 +25,6 @@ export const text = localFont({
   ],
   display: "swap",
   variable: "--font-coconat",
-  adjustFontFallback: "Arial",
-});
-
-/**
- * Coconat Bold is wide and only used for numbers (stats, prices). Its own family, not preloaded,
- * so it never competes with the first screen's fonts on a slow connection.
- */
-export const numeral = localFont({
-  src: "./fonts/Coconat-Bold.woff2",
-  weight: "700",
-  display: "swap",
-  preload: false,
-  variable: "--font-coconat-wide",
   adjustFontFallback: "Arial",
 });
 
@@ -64,10 +52,6 @@ export const deva = localFont({
   declarations: [{ prop: "unicode-range", value: "U+0900-097F" }],
 });
 
-export const fontVariables = [
-  display.variable,
-  text.variable,
-  numeral.variable,
-  rupee.variable,
-  deva.variable,
-].join(" ");
+export const fontVariables = [display.variable, text.variable, rupee.variable, deva.variable].join(
+  " ",
+);

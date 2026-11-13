@@ -157,12 +157,38 @@
 }
 
 /* Numbers set in Coconat Bold (wide). Tabular so stats don't jitter. */
+/* Numbers are set in the display serif (Zarathustra), the same voice as the headlines. */
 @utility numeral {
   font-family:
-    var(--font-rupee), var(--font-deva), var(--font-coconat-wide), var(--font-coconat), sans-serif;
-  font-weight: 700;
-  font-variant-numeric: tabular-nums lining-nums;
+    var(--font-rupee), var(--font-deva), var(--font-zarathustra), var(--font-coconat), serif;
+  font-weight: 400;
+  font-variant-numeric: lining-nums;
+}
+
+/* Display prices and stats: serif figures, currency symbol or affix small and raised,
+   the way a printed menu sets a price. */
+.price-display {
+  display: inline-flex;
+  align-items: baseline; /* the box takes the numerals' baseline, not the small symbol's */
+  font-family: var(--font-zarathustra), Georgia, serif;
+  font-weight: 400;
+  line-height: 1;
   letter-spacing: -0.01em;
+}
+.price-sym,
+.price-affix {
+  font-family: var(--font-rupee), var(--font-deva), var(--font-coconat), sans-serif;
+  font-weight: 600;
+  font-size: 0.36em;
+  letter-spacing: 0;
+  align-self: flex-start;
+  margin-top: 0.3em;
+}
+.price-sym {
+  margin-right: 0.12em;
+}
+.price-affix {
+  margin-left: 0.14em;
 }
 
 /* =====================================================================

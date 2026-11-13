@@ -50,23 +50,27 @@ export function PricingCard({
           <Badge className={featured ? "bg-accent-on-dark text-ink" : ""}>{tier.badge}</Badge>
         ) : null}
       </header>
-      <p className={cn("mt-2 max-w-[34ch]", featured ? "text-muted-dark" : "text-muted")}>
+      <p
+        className={cn(
+          "mt-2 max-w-[34ch] lg:min-h-[3.3em]",
+          featured ? "text-muted-dark" : "text-muted",
+        )}
+      >
         {tier.tagline}
       </p>
 
       <div className="mt-8">
         {main ? (
           <>
-            <p className="flex items-baseline gap-2">
-              {compact ? (
-                <span className={cn("text-small", featured ? "text-muted-dark" : "text-muted")}>
-                  from
-                </span>
-              ) : null}
+            <p className={cn("label mb-3", featured ? "text-muted-dark" : "text-muted")}>
+              {compact ? "From" : active ? "Founding rate" : "Price"}
+            </p>
+            <p className="leading-none">
               <Price
                 prices={main}
                 lock={lock}
-                className="numeral text-[2.5rem] leading-none md:text-[2.75rem]"
+                display
+                className="text-[3.25rem] md:text-[3.5rem]"
               />
             </p>
             {active && tier.standard ? (
@@ -77,7 +81,12 @@ export function PricingCard({
             ) : null}
           </>
         ) : (
-          <p className="numeral text-[2.5rem] leading-none md:text-[2.75rem]">{tier.priceLabel}</p>
+          <>
+            <p className={cn("label mb-3", featured ? "text-muted-dark" : "text-muted")}>Price</p>
+            <p className="font-display text-[3.25rem] leading-none md:text-[3.5rem]">
+              {tier.priceLabel}
+            </p>
+          </>
         )}
         <p className={cn("label mt-4", featured ? "text-muted-dark" : "text-muted")}>
           Delivery · {tier.delivery}

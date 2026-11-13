@@ -13,6 +13,13 @@ export function formatPrice(amount: number, region: Region): string {
   }
 }
 
+/** Symbol and number separately, for display prices where the symbol is set small and raised. */
+export function priceParts(amount: number, region: Region): { symbol: string; number: string } {
+  const full = formatPrice(amount, region);
+  const symbol = region === "IN" ? "₹" : region === "NP" ? "रू" : "$";
+  return { symbol, number: full.slice(symbol.length) };
+}
+
 /** "2027-01-01" -> "Jan 1, 2027" (fixed locale and zone so server and client agree). */
 export function formatDate(iso: string): string {
   return new Intl.DateTimeFormat("en-US", {

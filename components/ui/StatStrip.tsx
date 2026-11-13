@@ -29,7 +29,7 @@ export function StatStrip({
           data-reveal
           style={{ "--reveal-i": i } as React.CSSProperties}
           className={cn(
-            "flex flex-col-reverse gap-3 px-1 py-7 sm:px-5 md:py-9",
+            "flex flex-col-reverse justify-end gap-3 px-1 py-7 sm:px-5 md:py-9",
             // vertical rules between columns, horizontal rule between mobile rows
             i % 2 === 1 &&
               (onDark ? "border-rule-dark border-l pl-5" : "border-rule border-l pl-5"),
@@ -43,9 +43,23 @@ export function StatStrip({
           <dt className={cn("text-small max-w-[18ch]", onDark ? "text-muted-dark" : "text-muted")}>
             {s.label}
           </dt>
-          <dd className="numeral text-number whitespace-nowrap">{s.value}</dd>
+          <dd className="text-number whitespace-nowrap">
+            <Figure value={s.value} />
+          </dd>
         </div>
       ))}
     </dl>
+  );
+}
+
+/** "10+" -> big "10" + small raised "+"; "7 days" -> big "7" + small "days"; words stay whole. */
+function Figure({ value }: { value: string }) {
+  const m = /^([\d.,]+[MK]?)\s*(.*)$/.exec(value);
+  if (!m) return <span className="font-display">{value}</span>;
+  return (
+    <span className="price-display">
+      <span>{m[1]}</span>
+      {m[2] ? <span className="price-affix">{m[2]}</span> : null}
+    </span>
   );
 }
