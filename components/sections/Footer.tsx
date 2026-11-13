@@ -10,11 +10,11 @@ export function Footer() {
   const col = "label mb-4 text-muted";
   const link = "transition-colors duration-(--duration-micro) hover:text-accent";
   return (
-    <footer className="border-rule bg-paper-2 border-t">
+    <footer className="defer-render border-rule bg-paper-2 border-t">
       <div className="container-site grid gap-12 py-16 md:grid-cols-12 md:py-20">
         <div className="md:col-span-5">
-          <Link href="/" aria-label="octate studio, home" className="text-[2.75rem]">
-            <Wordmark withStudio />
+          <Link href="/" aria-label="octate studio, home" className="inline-flex items-center">
+            <Wordmark withStudio className="h-[35px]" />
           </Link>
           <p className="text-muted mt-5 max-w-[36ch]">
             Premium websites, live in 7 days. Web, ads and tech for growing businesses.

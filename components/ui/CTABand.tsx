@@ -25,12 +25,21 @@ export function CTABand({
 }) {
   return (
     <section
-      className={cn("py-section", dark ? "on-dark bg-ink text-paper" : "bg-paper-2", className)}
+      className={cn("py-section defer-render", dark ? "on-dark bg-ink text-paper" : "bg-paper-2", className)}
     >
       <div className="container-site grid gap-10 lg:grid-cols-12 lg:items-end">
         <div className="lg:col-span-8">
           <EightDots className={dark ? "text-paper" : "text-ink"} onDark={dark} />
-          <h2 className="text-h2 mt-8">{title}</h2>
+          <h2 className="text-h2 mt-8 max-w-[16ch]">
+            {title}
+            <span
+              aria-hidden
+              className={cn(
+                "pixel-cursor ml-[0.12em] inline-block h-[0.62em] w-[0.34em] align-baseline",
+                dark ? "bg-accent-on-dark" : "bg-accent",
+              )}
+            />
+          </h2>
           {sub ? (
             <p
               className={cn("text-lead mt-5 max-w-[52ch]", dark ? "text-muted-dark" : "text-muted")}

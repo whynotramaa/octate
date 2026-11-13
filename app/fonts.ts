@@ -21,10 +21,22 @@ export const text = localFont({
   src: [
     { path: "./fonts/Coconat-Regular.woff2", weight: "400", style: "normal" },
     { path: "./fonts/Coconat-Demi.woff2", weight: "600", style: "normal" },
-    { path: "./fonts/Coconat-Bold.woff2", weight: "700", style: "normal" },
   ],
   display: "swap",
   variable: "--font-coconat",
+  adjustFontFallback: "Arial",
+});
+
+/**
+ * Coconat Bold is wide and only used for numbers (stats, prices). Its own family, not preloaded,
+ * so it never competes with the first screen's fonts on a slow connection.
+ */
+export const numeral = localFont({
+  src: "./fonts/Coconat-Bold.woff2",
+  weight: "700",
+  display: "swap",
+  preload: false,
+  variable: "--font-coconat-wide",
   adjustFontFallback: "Arial",
 });
 
@@ -52,6 +64,10 @@ export const deva = localFont({
   declarations: [{ prop: "unicode-range", value: "U+0900-097F" }],
 });
 
-export const fontVariables = [display.variable, text.variable, rupee.variable, deva.variable].join(
-  " ",
-);
+export const fontVariables = [
+  display.variable,
+  text.variable,
+  numeral.variable,
+  rupee.variable,
+  deva.variable,
+].join(" ");

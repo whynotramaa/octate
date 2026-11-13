@@ -25,8 +25,8 @@ export function Header() {
         Skip to content
       </a>
       <div className="container-site flex h-16 items-center justify-between gap-6 md:h-[4.5rem]">
-        <Link href="/" aria-label="octate studio, home" className="text-[1.75rem] md:text-[2rem]">
-          <Wordmark />
+        <Link href="/" aria-label="octate studio, home" className="inline-flex items-center">
+          <Wordmark className="h-[21px] md:h-[24.5px]" />
         </Link>
         <nav aria-label="Main" className="hidden lg:block">
           <ul className="flex items-center gap-9">

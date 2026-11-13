@@ -38,8 +38,8 @@ export function MobileMenu({ links }: { links: readonly { href: string; label: s
         className="bg-paper text-ink backdrop:bg-ink/40 m-0 h-dvh max-h-none w-full max-w-none p-0 open:flex open:flex-col"
       >
         <div className="container-site flex h-16 shrink-0 items-center justify-between">
-          <Link href="/" className="text-[1.75rem]" onClick={() => ref.current?.close()}>
-            <Wordmark />
+          <Link href="/" className="inline-flex items-center" onClick={() => ref.current?.close()}>
+            <Wordmark className="h-[21px]" />
           </Link>
           <button
             type="button"

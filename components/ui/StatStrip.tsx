@@ -43,7 +43,7 @@ export function StatStrip({
           <dt className={cn("text-small max-w-[18ch]", onDark ? "text-muted-dark" : "text-muted")}>
             {s.label}
           </dt>
-          <dd className="numeral text-number">{s.value}</dd>
+          <dd className="numeral text-number whitespace-nowrap">{s.value}</dd>
         </div>
       ))}
     </dl>

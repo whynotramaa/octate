@@ -120,22 +120,20 @@ export default function StyleguidePage() {
         <Block
           id="logo"
           title="Logo"
-          note="The full stop is a tiny 8: ring on an oxblood dot. The dot is Day 7, live."
+          note="Drawn on an 8×8 grid. The oxblood pixel is the full stop, and launch day."
         >
           <div className="grid gap-4 md:grid-cols-3">
             <Card className="grid h-44 place-items-center text-[3.5rem]">
-              <Wordmark withStudio />
+              <Wordmark withStudio className="h-[42px]" />
             </Card>
             <Card tone="ink" className="grid h-44 place-items-center text-[3.5rem]">
-              <Wordmark withStudio onDark />
+              <Wordmark withStudio onDark className="text-paper h-[42px]" />
             </Card>
             <Card className="flex h-44 items-center justify-center gap-6">
               <Mark className="size-16" />
-              <Mark className="size-8" />
-              <Mark className="size-4" />
-              <span className="bg-accent text-paper grid size-16 place-items-center rounded-[18px]">
-                <Mark className="[&_.fill-accent]:fill-paper size-10" />
-              </span>
+              <Mark tile className="size-16" />
+              <Mark tile className="size-8" />
+              <Mark tile className="size-4" />
             </Card>
           </div>
         </Block>

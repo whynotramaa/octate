@@ -38,7 +38,7 @@ export function Section({
     <section
       id={id}
       className={cn(
-        "py-section",
+        "py-section defer-render",
         tone === "paper" && "bg-paper",
         tone === "paper-2" && "bg-paper-2",
         dark && "on-dark bg-ink text-paper",
